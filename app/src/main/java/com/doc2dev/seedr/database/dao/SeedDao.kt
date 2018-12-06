@@ -2,6 +2,7 @@ package com.doc2dev.seedr.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy.REPLACE
 import com.doc2dev.seedr.database.entities.SeedEntry
 
 /**
@@ -9,6 +10,6 @@ import com.doc2dev.seedr.database.entities.SeedEntry
  */
 @Dao
 interface SeedDao {
-    @Insert
+    @Insert(onConflict = REPLACE)
     fun addSeedEntry(seedEntry: SeedEntry)
 }

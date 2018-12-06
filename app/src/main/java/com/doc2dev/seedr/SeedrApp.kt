@@ -3,6 +3,8 @@ package com.doc2dev.seedr
 import android.app.Application
 import androidx.room.Room
 import com.doc2dev.seedr.database.SeedDatabase
+import io.reactivex.exceptions.UndeliverableException
+import io.reactivex.plugins.RxJavaPlugins
 import timber.log.Timber
 
 /**
@@ -17,6 +19,11 @@ class SeedrApp: Application() {
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
+        initializeTimber()
+        initializeRxErrorHandling()
+    }
+
+    private fun initializeTimber() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
@@ -26,5 +33,12 @@ class SeedrApp: Application() {
         return  Room.databaseBuilder(this, SeedDatabase::class.java, "seed-db")
             .fallbackToDestructiveMigration()
             .build()
+    }
+
+    private fun initializeRxErrorHandling() {
+        RxJavaPlugins.setErrorHandler { e ->
+            val cause = if (e is UndeliverableException) e.cause else e
+            Timber.d("Undeliverable exception received: %s", cause?.message)
+        }
     }
 }
