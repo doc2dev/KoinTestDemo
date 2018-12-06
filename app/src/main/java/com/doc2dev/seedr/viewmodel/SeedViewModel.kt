@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.doc2dev.seedr.database.entities.SeedEntry
 import com.doc2dev.seedr.repository.SeedRepository
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -34,4 +35,8 @@ class SeedViewModel : ViewModel() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    fun getAllSeeds(): Flowable<List<SeedEntry>> = repository.getAllSeeds()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 }

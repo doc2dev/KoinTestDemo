@@ -1,4 +1,4 @@
-package com.doc2dev.seedr.ui
+package com.doc2dev.seedr.ui.addSeed
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,11 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.doc2dev.seedr.R
+import com.doc2dev.seedr.ui.MainActivity
 import com.doc2dev.seedr.util.attachToLifecycle
 import com.doc2dev.seedr.util.makeShortSnackbar
 import com.doc2dev.seedr.util.text
@@ -24,7 +25,7 @@ import timber.log.Timber
  * Created by Eston on 06/12/2018.
  */
 class AddSeedFragment : Fragment() {
-    private lateinit var parentActivity: AppCompatActivity
+    private lateinit var parentActivity: MainActivity
     private lateinit var rootView: View
     private lateinit var viewModel: SeedViewModel
     private val seedTypes = arrayOf(
@@ -43,7 +44,8 @@ class AddSeedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         rootView = view
-        parentActivity = activity as AppCompatActivity
+        parentActivity = activity as MainActivity
+        parentActivity.toggleBackButton(true)
         viewModel = ViewModelProviders.of(parentActivity).get(SeedViewModel::class.java)
         parentActivity.title = "Add Seed"
         populateSeedTypes()
@@ -64,6 +66,7 @@ class AddSeedFragment : Fragment() {
             val disposable = completable.subscribe({
                 toggleLoading(false)
                 rootView.makeShortSnackbar("Seed added successfully!")
+                findNavController().navigateUp()
             }, {
                 toggleLoading(false)
                 Timber.d("Error: ${it.message}")

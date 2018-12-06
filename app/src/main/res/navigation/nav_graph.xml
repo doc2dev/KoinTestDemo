@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/seedListFragment"
-        android:name="com.doc2dev.seedr.ui.SeedListFragment"
+        android:name="com.doc2dev.seedr.ui.seedList.SeedListFragment"
         android:label="Seed List"
         tools:layout="@layout/fragment_seeds_list">
 
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/addSeedFragment"
-        android:name="com.doc2dev.seedr.ui.AddSeedFragment"
+        android:name="com.doc2dev.seedr.ui.addSeed.AddSeedFragment"
         android:label="Add Seed" />
 
 </navigation>
