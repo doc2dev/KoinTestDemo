@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.doc2dev.seedr.R
 import android.widget.ArrayAdapter
+import com.doc2dev.seedr.util.makeShortSnackbar
+import com.doc2dev.seedr.util.validateNotEmpty
 import kotlinx.android.synthetic.main.fragment_add_seed.*
 
 
@@ -16,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_add_seed.*
  */
 class AddSeedFragment: Fragment() {
     private lateinit var parentActivity: AppCompatActivity
+    private lateinit var rootView: View
     private val seedTypes = arrayOf(
         "Maize",
         "Sorghum",
@@ -31,10 +34,34 @@ class AddSeedFragment: Fragment() {
         inflater.inflate(R.layout.fragment_add_seed, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        rootView = view
         parentActivity = activity as AppCompatActivity
         parentActivity.title = "Add Seed"
         populateSeedTypes()
         populateSeedQuantities()
+        submitButton.setOnClickListener { validateAndSave() }
+    }
+
+    private fun validateAndSave() {
+        if (allFieldsValid()) {
+            // save
+        }
+    }
+
+    private fun allFieldsValid(): Boolean {
+        val isSeedTypeSelected = seedTypeSelector.selectedItemPosition >= 0
+        val isSeedQuantitySelected = seedQuantitySelector.selectedItemPosition >= 0
+        if (!isSeedQuantitySelected) {
+            rootView.makeShortSnackbar("Seed quantity is required")
+            return isSeedQuantitySelected
+        }
+        if (!isSeedTypeSelected) {
+            rootView.makeShortSnackbar("Seed type is required")
+            return isSeedTypeSelected
+        }
+        return brandName.validateNotEmpty() &&
+            uniqueId.validateNotEmpty() &&
+            phoneNumber.validateNotEmpty()
     }
 
     private fun populateSeedQuantities() {
