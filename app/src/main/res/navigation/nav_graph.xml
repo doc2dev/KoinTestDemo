@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/seedListFragment">
+
+    <fragment
+        android:id="@+id/seedListFragment"
+        android:name="com.doc2dev.seedr.ui.SeedListFragment"
+        android:label="Seed List"
+        tools:layout="@layout/fragment_seeds_list">
+
+        <action
+            android:id="@+id/openAddSeed"
+            app:destination="@id/addSeedFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addSeedFragment"
+        android:name="com.doc2dev.seedr.ui.AddSeedFragment"
+        android:label="Add Seed" />
+
+</navigation>
