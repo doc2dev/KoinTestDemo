@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">SeedR</string>
+    <string name="seed_type">Seed type:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="unique_id">Unique package ID:</string>
+    <string name="brand_name">Brand Name</string>
+    <string name="unique_id_hint">Unique package ID:</string>
+    <string name="customer_phone">Customer Phone</string>
+    <string name="submit">Submit</string>
+    <string name="seed_quantity_label">Seed Quantity:</string>
 </resources>
