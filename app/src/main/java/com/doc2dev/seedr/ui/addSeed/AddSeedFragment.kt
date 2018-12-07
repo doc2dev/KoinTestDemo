@@ -88,11 +88,11 @@ class AddSeedFragment : Fragment() {
         val isSeedQuantitySelected = seedQuantitySelector.selectedItemPosition >= 0
         if (!isSeedQuantitySelected) {
             rootView.makeShortSnackbar("Seed quantity is required")
-            return isSeedQuantitySelected
+            return false
         }
         if (!isSeedTypeSelected) {
             rootView.makeShortSnackbar("Seed type is required")
-            return isSeedTypeSelected
+            return false
         }
         return brandName.validateNotEmpty() &&
             uniqueId.validateNotEmpty() &&
