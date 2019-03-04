@@ -3,8 +3,10 @@ package com.doc2dev.seedr
 import android.app.Application
 import androidx.room.Room
 import com.doc2dev.seedr.database.SeedDatabase
+import com.doc2dev.seedr.di.appModule
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
+import org.koin.android.ext.android.startKoin
 import timber.log.Timber
 
 /**
@@ -21,6 +23,7 @@ class SeedrApp: Application() {
         INSTANCE = this
         initializeTimber()
         initializeRxErrorHandling()
+        startKoin(this, listOf(appModule))
     }
 
     private fun initializeTimber() {

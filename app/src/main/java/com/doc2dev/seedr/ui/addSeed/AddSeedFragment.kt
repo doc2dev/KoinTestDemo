@@ -18,6 +18,7 @@ import com.doc2dev.seedr.util.text
 import com.doc2dev.seedr.util.validateNotEmpty
 import com.doc2dev.seedr.viewmodel.SeedViewModel
 import kotlinx.android.synthetic.main.fragment_add_seed.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 
@@ -27,7 +28,7 @@ import timber.log.Timber
 class AddSeedFragment : Fragment() {
     private lateinit var parentActivity: MainActivity
     private lateinit var rootView: View
-    private lateinit var viewModel: SeedViewModel
+    private val viewModel: SeedViewModel by viewModel()
     private val seedTypes = arrayOf(
         "Maize",
         "Sorghum",
@@ -46,7 +47,6 @@ class AddSeedFragment : Fragment() {
         rootView = view
         parentActivity = activity as MainActivity
         parentActivity.toggleBackButton(true)
-        viewModel = ViewModelProviders.of(parentActivity).get(SeedViewModel::class.java)
         parentActivity.title = "Add Seed"
         populateSeedTypes()
         populateSeedQuantities()

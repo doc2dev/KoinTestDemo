@@ -11,11 +11,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by Eston on 06/12/2018.
  */
-class SeedViewModel : ViewModel() {
-
-    private val repository: SeedRepository by lazy {
-        SeedRepository()
-    }
+class SeedViewModel(private val repository: SeedRepository) : ViewModel() {
 
     fun persistSeedEntry(
         brandName: String,

@@ -15,6 +15,9 @@ import com.doc2dev.seedr.ui.MainActivity
 import com.doc2dev.seedr.util.attachToLifecycle
 import com.doc2dev.seedr.viewmodel.SeedViewModel
 import kotlinx.android.synthetic.main.fragment_seeds_list.*
+import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.getViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
 /**
@@ -22,7 +25,7 @@ import timber.log.Timber
  */
 class SeedListFragment: Fragment() {
     lateinit var parentActivity: MainActivity
-    lateinit var viewModel: SeedViewModel
+    val viewModel: SeedViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +35,6 @@ class SeedListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         parentActivity = activity as MainActivity
         parentActivity.toggleBackButton(false)
-        viewModel = ViewModelProviders.of(parentActivity).get(SeedViewModel::class.java)
         parentActivity.title = "Seed List"
         addFab.setOnClickListener {
             findNavController().navigate(R.id.openAddSeed)
