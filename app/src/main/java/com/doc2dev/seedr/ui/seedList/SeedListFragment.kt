@@ -24,8 +24,10 @@ import timber.log.Timber
  * Created by Eston on 06/12/2018.
  */
 class SeedListFragment: Fragment() {
+    lateinit var rootView: View
+    lateinit var adapter: SeedListAdapter
     lateinit var parentActivity: MainActivity
-    val viewModel: SeedViewModel by viewModel()
+    private val viewModel: SeedViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,6 +42,7 @@ class SeedListFragment: Fragment() {
             findNavController().navigate(R.id.openAddSeed)
         }
         observeSeedList()
+        rootView = view
     }
 
     private fun observeSeedList() {
@@ -56,7 +59,7 @@ class SeedListFragment: Fragment() {
         val sortedEntries = seedEntries.sortedByDescending {
             it.dateCreated.time
         }
-        val adapter = SeedListAdapter(sortedEntries)
+        adapter = SeedListAdapter(sortedEntries)
         val layoutManager = LinearLayoutManager(parentActivity, RecyclerView.VERTICAL, false)
         seedEntryRecycler.layoutManager = layoutManager
         seedEntryRecycler.adapter = adapter
